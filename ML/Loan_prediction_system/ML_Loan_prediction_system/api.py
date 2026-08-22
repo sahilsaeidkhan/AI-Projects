@@ -23,9 +23,8 @@ class ApplicantData(BaseModel):
     luxury_assets_value: float
     bank_asset_value: float
 
-
-    @app.post("/predict")
-    def predict_loan(data : ApplicantData):
+@app.post("/predict")
+def predict_loan(data : ApplicantData):
         try:
             applicant_df = pd.DataFrame([data.model_dump()])
             result = model.two_stage_predict(applicant_df)
