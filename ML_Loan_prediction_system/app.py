@@ -7,7 +7,7 @@ st.set_page_config( page_title="Loan Approval Predictor")
 
 st.title("Loan Approval Prediction")
 
-st.write("Enter applicant details to check loan eligibility.")
+st.write("Enter applicant details to check the loan eligibility.")
 
 @st.cache_resource
 def load_model():
@@ -113,4 +113,4 @@ if st.button("Predict"):
 
     else:
 
-        st.error("Loan Rejected")
+        st.error("Loan Rejected ")
