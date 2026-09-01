@@ -1,7 +1,7 @@
 import streamlit as st 
 import pandas as pd 
 
-from loan_model import LoanApprovalApp
+from ML_Projects.ML_Loan_prediction_system.loan_model import LoanApprovalApp
 
 st.set_page_config( page_title="Loan Approval Predictor")
 
