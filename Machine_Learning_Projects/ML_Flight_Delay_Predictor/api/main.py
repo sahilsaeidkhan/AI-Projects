@@ -266,7 +266,4 @@ def predict(flight: FlightInput):
 
         "threshold":
             threshold
-    } 
-
-
-# Git contribution test
+    }
