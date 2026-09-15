@@ -17,14 +17,8 @@ env/
 .DS_Store
 Thumbs.db
 
-# Data
-data/
-data/processed/
-*.csv
-*.zip
-
 # Python cache
 .pytest_cache/
 
 # Environment variables
-.env
+.env    
