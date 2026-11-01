@@ -1,0 +1,23 @@
+# Private conversation data
+data/
+*.csv
+*.tsv
+*.zip
+
+# Model checkpoints
+models/
+*.pt
+*.pth
+*.pkl
+
+# Python
+__pycache__/
+*.pyc
+venv/
+.venv/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Environment variables
+.env
