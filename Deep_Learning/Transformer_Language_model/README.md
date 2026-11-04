@@ -2,4 +2,4 @@ An end-to-end NLP project exploring language modelling, text generation, and con
 
 
 
-Currently in the model training phase.
+Model Training Completed
