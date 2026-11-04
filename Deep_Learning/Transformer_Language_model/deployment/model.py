@@ -6,10 +6,29 @@ import torch
 import torch.nn as nn
 from tokenizers import ByteLevelBPETokenizer
 
+import os
+import streamlit as st
+from huggingface_hub import hf_hub_download
 
-BASE_DIR = Path(__file__).resolve().parent
-ARTIFACT_DIR = BASE_DIR / "artifacts"
-TOKENIZER_DIR = ARTIFACT_DIR / "tokenizer"
+
+# Private Hugging Face model repository
+HF_REPO_ID = "Sahil3842/twintalk-model"
+
+# Read token securely from Streamlit secrets or environment
+HF_TOKEN = os.getenv("HF_TOKEN")
+
+if not HF_TOKEN:
+    try:
+        HF_TOKEN = st.secrets["HF_TOKEN"]
+    except Exception:
+        raise RuntimeError("HF_TOKEN is missing. Configure it in Streamlit Secrets.")
+
+def download_model_file(filename):
+    return hf_hub_download(
+        repo_id=HF_REPO_ID,
+        filename=filename,
+        token=HF_TOKEN
+    )
 
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -171,16 +190,17 @@ class TransformerLanguageModel(nn.Module):
         return self.output_layer(x)
 
 
-# -------------------------
-# Load model and tokenizer
-# -------------------------
+config_path = download_model_file("config.json")
+weights_path = download_model_file("transformer_best.pth")
+vocab_path = download_model_file("vocab.json")
+merges_path = download_model_file("merges.txt")
 
-with open(ARTIFACT_DIR / "config.json", "r") as f:
+with open(config_path, "r") as f:
     CONFIG = json.load(f)
 
 tokenizer = ByteLevelBPETokenizer(
-    str(TOKENIZER_DIR / "vocab.json"),
-    str(TOKENIZER_DIR / "merges.txt")
+    vocab_path,
+    merges_path
 )
 
 model = TransformerLanguageModel(
@@ -193,7 +213,7 @@ model = TransformerLanguageModel(
 ).to(DEVICE)
 
 checkpoint = torch.load(
-    ARTIFACT_DIR / "transformer_best.pth",
+    weights_path,
     map_location=DEVICE,
     weights_only=True
 )
