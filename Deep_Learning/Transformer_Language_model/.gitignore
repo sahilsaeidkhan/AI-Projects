@@ -1,23 +1,18 @@
-# Private conversation data
+# notebooks
+*.ipynb
+
+# deployment artifacts
+deployment/artifacts/
+
+# datasets
 data/
 *.csv
 *.tsv
 *.zip
 
-# Model checkpoints
+# Model files
 models/
 *.pt
 *.pth
 *.pkl
 
-# Python
-__pycache__/
-*.pyc
-venv/
-.venv/
-
-# Jupyter
-.ipynb_checkpoints/
-
-# Environment variables
-.env

@@ -3,4 +3,7 @@ numpy
 matplotlib
 jupyter
 ipykernel
-torch
+
+# Use the CUDA-enabled PyTorch wheel for NVIDIA GPUs.
+--extra-index-url https://download.pytorch.org/whl/cu128
+torch==2.11.0+cu128
