@@ -248,7 +248,7 @@ else:
 
         with st.chat_message(
             role,
-            avatar="🧑" if role == "user" else "✦"
+            avatar="🧑" if role == "user" else "🤖"
         ):
             st.markdown(message)
 
@@ -266,7 +266,7 @@ if user_message:
     with st.chat_message("user", avatar="🧑"):
         st.markdown(user_message)
 
-    with st.chat_message("assistant", avatar="✦"):
+    with st.chat_message("assistant", avatar="🤖"):
         with st.spinner("Thinking..."):
 
             try:
