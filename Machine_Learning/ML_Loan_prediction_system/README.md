@@ -1,20 +1,17 @@
-# Loan Prediction System — a two-stage model
+# Loan Prediction System
 
-This project predicts two things about a loan application:
+This project works in two stages.
 
-1. Will the loan be approved? (classification)
-2. If yes, what amount does the model expect? (regression)
+Stage 1 is a Random Forest classifier. It looks at a loan application and predicts approved or rejected. Stage 2 is a Random Forest regressor. It runs only when stage 1 says approved, and it predicts the loan amount.
 
-It is a two-stage Random Forest system. Stage 1 decides approval. Stage 2 runs only for approved applications and predicts the amount.
+## Results
 
-## Results (from analyze.ipynb)
+From `analyze.ipynb`:
 
-| Stage | Model | Score |
-| --- | --- | --- |
-| 1 — approval | Random Forest classifier | Accuracy 0.98 · OOB score 0.986 |
-| 2 — amount | Random Forest regressor | Trained only on approved loans (details in analyze.ipynb) |
+- Stage 1 accuracy: 0.98 (OOB score 0.986)
+- Stage 2 is trained only on approved loans. Its detailed metrics are in the notebook.
 
-One honest note: CIBIL score alone carries about 84% of the feature importance in stage 1. In this dataset, approval is mostly a CIBIL decision — the other features change very little.
+One thing worth knowing: CIBIL score alone has about 84% of the feature importance in stage 1. So in this dataset, approval is mostly decided by CIBIL. The other features barely move the result.
 
 ## Files
 
@@ -47,7 +44,4 @@ or the API:
 uvicorn api:app --reload
 ```
 
-## What I learned
-
-- Splitting a problem into two stages — first decide, then estimate — is cleaner than forcing one model to do both.
-- A 0.98 accuracy can still hide a simple model. Check feature importance before celebrating.
+I built it in two stages because one model doing both jobs was messy. Splitting the decision and the amount made each part simpler to train and simpler to check. The accuracy taught me something too: a 0.98 score can still hide a very simple model, so check the feature importance before trusting a big number.
