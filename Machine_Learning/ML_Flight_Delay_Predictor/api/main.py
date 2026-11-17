@@ -28,9 +28,13 @@ threshold = joblib.load(
     MODEL_DIR / "threshold.pkl"
 )
 
-default_delay_rate = joblib.load(
-    MODEL_DIR / "default_delay_rate.pkl"
-)
+# default_delay_rate.pkl holds one number: the overall delay rate in the
+# training data. If the file is not in models/, fall back to the value itself.
+_default_rate_file = MODEL_DIR / "default_delay_rate.pkl"
+if _default_rate_file.exists():
+    default_delay_rate = joblib.load(_default_rate_file)
+else:
+    default_delay_rate = 0.21327768402215402
 
 
 # ==================================================
