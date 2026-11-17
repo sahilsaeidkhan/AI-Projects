@@ -1,11 +1,11 @@
 # NLP Practice
 
-Practice notebooks for NLP basics. This is a learning record, not a finished project.
+These are my NLP practice notebooks. Not a project, just a record of what I practised.
 
 `NLP_practice.ipynb` covers:
 
-- Tokenization — sentence and word level (NLTK)
-- Stemming (Porter stemmer) and lemmatization (WordNet)
-- Stopword removal and a small text preprocessing function
+- Tokenization, sentence level and word level (NLTK)
+- Stemming with the Porter stemmer, and lemmatization with WordNet
+- Stopword removal and a small preprocessing function
 - POS tagging
-- Named entity recognition — first with NLTK (`ne_chunk`), then with spaCy (`en_core_web_sm`)
+- Named entity recognition, first with NLTK and then with spaCy (`en_core_web_sm`)
