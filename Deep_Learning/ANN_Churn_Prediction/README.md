@@ -1,26 +1,22 @@
-# ANN — Bank Churn Prediction
+# ANN Churn Prediction
 
-This folder was earlier named "Loan Prediction" — that name was wrong. The notebook actually predicts **bank customer churn**: whether a customer will leave the bank or stay.
+This folder used to be called "Loan Prediction". That name was wrong. The notebook predicts bank customer churn, meaning whether a customer will leave the bank or stay.
 
-## What it does
+## About the notebook
 
-- Dataset: the standard bank churn dataset — credit score, geography, gender, age, tenure, balance, number of products, credit card status, active membership, estimated salary
-- Target: `Exited` — 1 if the customer left, 0 if they stayed
-- Preprocessing: one-hot encoding for geography and gender, feature scaling
-- Model: a Keras ANN (TensorFlow), trained for up to 100 epochs
+- Dataset: the usual bank churn dataset. Features are credit score, geography, gender, age, tenure, balance, number of products, credit card status, active member and estimated salary.
+- Target is `Exited`. 1 means the customer left, 0 means they stayed.
+- Geography and gender are one-hot encoded, and the numeric features are scaled.
+- The model is a Keras ANN, set to train for 100 epochs.
 
 ## Result
 
-- Test accuracy: **0.85** (2,000 test rows)
-- Validation accuracy stays around 0.85 almost from the start — the model plateaus early, so most of the 100 epochs add nothing. Early stopping would cut training time without changing the result.
+Test accuracy is 0.85 on 2,000 test rows. Validation accuracy reaches about 0.85 very early and then stays flat, so most of the 100 epochs are wasted. Early stopping is the obvious fix. I just have not applied it yet.
+
+Two things I took from this project. On tabular data, a neural network is not automatically better than a simple model. And if the validation curve is flat, adding more epochs only adds waiting time.
 
 ## Files
 
 ```
 ANN_Churn_Prediction.ipynb    preprocessing, training and evaluation
 ```
-
-## What I learned
-
-- On tabular data, a neural network does not automatically beat simpler models — clean features and an honest test split matter more.
-- Watch the validation curve. When it goes flat, more epochs are just more waiting.
