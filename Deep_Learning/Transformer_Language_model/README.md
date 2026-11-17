@@ -75,8 +75,8 @@ The replies are short and in Hinglish, because that is what the training data lo
 
 **Train / explore**
 
-- `data_exploration.ipynb` — how the data was cleaned and checked
-- `token_training.ipynb` — the tokenizer, all three models, training and test results
+- `data_exploration.ipynb`: how the data was cleaned and checked
+- `token_training.ipynb`: the tokenizer, all three models, training and test results
 
 Install the packages in `requirements.txt` first. Training also needs the data files in `data/raw/`, which are not in this repo.
 
