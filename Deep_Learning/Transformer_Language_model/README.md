@@ -1,14 +1,14 @@
-# TwinTalk — a small GPT-style chat model, built from scratch
+# TwinTalk: a small GPT-style chat model, built from scratch
 
 TwinTalk is a conversational language model I built from scratch in PyTorch. Give it a chat conversation and it writes the next reply.
 
-Nothing here is a pre-trained model. I trained the tokenizer, prepared the data, wrote the transformer, and wrote the training loop myself. That was the whole point — I wanted to understand how models like ChatGPT work from the inside, not just call an API.
+Nothing here is a pre-trained model. I trained the tokenizer, prepared the data, wrote the transformer, and wrote the training loop myself. That was the whole point. I wanted to understand how models like ChatGPT work from the inside, not just call an API.
 
 ## How it works
 
 **1. Data**
 
-I used a dataset of about 123,000 short chat messages between two people. First I cleaned it — removed empty messages, "deleted message" texts, media placeholders and duplicates. About 118,000 messages were left.
+I used a dataset of about 123,000 short chat messages between two people. First I cleaned it. I removed empty messages, "deleted message" texts, media placeholders and duplicates. About 118,000 messages were left.
 
 I split them in time order (90% train / 5% validation / 5% test), so the model is always tested on newer messages than the ones it trained on.
 
@@ -20,7 +20,7 @@ I trained a byte-level BPE tokenizer on this data itself (vocabulary: 4,000). Sp
 
 **3. Model**
 
-A decoder-only transformer — the same basic design as GPT, just very small.
+A decoder-only transformer. Same basic design as GPT, just very small.
 
 | Setting | Value |
 | --- | --- |
@@ -36,10 +36,11 @@ Each block is pre-norm: LayerNorm → causal multi-head self-attention → resid
 
 **4. Training**
 
-- Loss: cross-entropy · Optimizer: AdamW (learning rate 0.0003, weight decay 0.0001)
+- Loss: cross-entropy
+- Optimizer: AdamW (learning rate 0.0003, weight decay 0.0001)
 - Batch size 32, gradient clipping at 1.0, max 10 epochs, early stopping with patience 2
 - The best checkpoint is picked by validation loss, not the last epoch
-- Trained on my laptop GPU — NVIDIA RTX 3050 (6 GB)
+- Trained on my laptop GPU, an NVIDIA RTX 3050 (6 GB)
 
 **5. Generation**
 
@@ -47,7 +48,7 @@ Replies are generated one token at a time, with temperature 0.8 and top-k 40 sam
 
 ## Results
 
-On the test set — messages the model never saw during training:
+Test set results (messages the model never saw during training):
 
 | Metric | Value |
 | --- | --- |
@@ -57,9 +58,9 @@ On the test set — messages the model never saw during training:
 
 This was my third attempt, and the first two taught me more than the third:
 
-1. **Bigram baseline** — simple counts of which token follows which. Something basic to compare against.
-2. **LSTM model** (646K parameters) — it learned the shape of the language, but the replies barely made sense.
-3. **This transformer** — clearly better than both. My early models also overfitted badly; dropout, weight decay and early stopping fixed most of that.
+1. **Bigram baseline.** Simple counts of which token follows which. Something basic to compare against.
+2. **LSTM model** (646K parameters). It learned the shape of the language, but the replies barely made sense.
+3. **This transformer.** Clearly better than both. My early models also overfitted badly; dropout, weight decay and early stopping fixed most of that.
 
 A real example from the trained model:
 
@@ -101,11 +102,11 @@ requirements.txt          packages needed for training
 
 - Attention is not magic. The causal mask is the main trick that turns it into a language model.
 - A model this small overfits fast. Half the work of training is stopping it from just memorising.
-- The tokenizer matters more than I expected — the model only ever sees what its tokenizer gives it.
+- The tokenizer matters more than I expected. The model only ever sees what its tokenizer gives it.
 - A time-ordered test set is honest. A random split leaks future messages into training and makes the results look better than they are.
 
 ## Next
 
-- Longer context — 64 tokens is short for a real conversation
+- Longer context. 64 tokens is short for a real conversation
 - A bigger version of the model, compared properly on perplexity
 - Try different sampling settings and note what actually changes
